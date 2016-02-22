@@ -30,11 +30,25 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 print(tweet.text!)
             }
         }, failure: { (error: NSError) -> () in
-                print(error.localizedDescription)
+            print(error.localizedDescription)
         })
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        TwitterClient.sharedInstance.homeTimeline({ (tweets: [Tweet]) -> () in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                refreshControl.endRefreshing()
+            }) { (error: NSError) -> () in
+                print("Error: \(error.localizedDescription)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
