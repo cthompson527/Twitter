@@ -11,9 +11,12 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var loginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loginButton.layer.cornerRadius = 5
+        loginButton.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
     

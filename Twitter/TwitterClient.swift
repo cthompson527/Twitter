@@ -94,6 +94,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func tweet(tweetString: String, completion: ((success: Bool, failure: NSError?) -> Void)) {
+        POST("1.1/statuses/update.json", parameters: ["status":tweetString], progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+                completion(success: true, failure: nil)
+            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+                completion(success: false, failure: error)
+        }
+    }
+    
     func like(id: String, completion: ((success: Bool, failure: NSError?) -> Void)) {
         POST("1.1/favorites/create.json", parameters: ["id":id], progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 completion(success: true, failure: nil)

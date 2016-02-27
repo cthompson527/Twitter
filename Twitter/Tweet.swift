@@ -11,9 +11,6 @@ import UIKit
 class Tweet: NSObject {
     var id: String?
     var text: String?
-    var name: String?
-    var screenname: String?
-    var posterImagePath: NSURL?
     var timestamp: NSDate?
     var retweetCount: Int = 0
     var favoriteCount: Int = 0

@@ -77,14 +77,31 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance.logout()
     }
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if sender is UIButton {
+            let buttonPoint = sender?.convertPoint(CGPointZero, toView: tableView)
+            let indexPath = tableView.indexPathForRowAtPoint(buttonPoint!)
+            let tweet = tweets![indexPath!.row]
+            
+            if segue.destinationViewController is DetailUserViewController {
+                let detailViewController = segue.destinationViewController as! DetailUserViewController
+                detailViewController.user = tweet.user
+            } else if segue.destinationViewController is ComposeViewController {
+                let composeViewController = segue.destinationViewController as! ComposeViewController
+                composeViewController.screenName = tweet.user.screenName
+            }
+        } else if segue.destinationViewController is DetailTweetViewController {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)
+            let detailTweetViewController = segue.destinationViewController as! DetailTweetViewController
+            detailTweetViewController.tweet = tweets![indexPath!.row]
+        }
     }
-    */
-
 }

@@ -24,7 +24,7 @@ class TweetsCell: UITableViewCell {
             descriptionLabel.text = tweet.text
             nameLabel.text = tweet.user.name!
             screennameLabel.text = "@\(tweet.user.screenName!)"
-            posterImageView.setImageWithURL(tweet.user.profileURL!)
+            posterImageView.setImageWithURL(tweet.user.profileImageURL!)
             
             let timePosted = tweet.timestamp
             let timeNowInterval = NSDate().timeIntervalSince1970
